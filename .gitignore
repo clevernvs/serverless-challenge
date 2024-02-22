@@ -34,5 +34,8 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-#
-data
+# Dados Locais
+/data
+
+# .env utilizados
+/.dotenv_files
