@@ -1,21 +1,23 @@
-export type FuncionarioProps = {
-    nome: string;
-    idade: number;
-    cargo: string;
-};
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity({ name: 'funcionario' })
 export class Funcionario {
 
-    constructor(props: FuncionarioProps) {
-        // this.nome = props.nome;
-        // this.idade = props.idade;
-        // this.cargo = props.cargo;
+    @PrimaryGeneratedColumn('rowid')
+    id: number;
 
-        Object.assign(this, props);
-    }
-
+    @Column({ name: 'nome', nullable: false })
     nome: string;
+
+    @Column({ name: 'idade', nullable: false })
     idade: number;
+
+    @Column({ name: 'cargo', nullable: false })
     cargo: string;
 
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @CreateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }
