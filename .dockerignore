@@ -1,0 +1,8 @@
+/api/dist
+/api/node_modules
+
+# Tests
+/api/coverage
+/api/.nyc_output
+
+/.dotenv_files/.env

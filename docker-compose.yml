@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  node:
+    container_name: API
+    build:
+      context: ./
+      dockerfile: docker/node/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+    # depends_on:
+    #   - db
+    # db:
+    #   container_name: PostgreSQL
+    #   image: postgres:13-alpine
+    #   ports:
+    #     - 5432:5432
+    #   volumes:
+    #     - ./data/postgres/data:/var/lib/postgresql/data/
+    #   env_file:
+    #     - ./dotenv_files/.env
