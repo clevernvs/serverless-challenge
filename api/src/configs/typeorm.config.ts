@@ -9,7 +9,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     database: "desafio",
     entities: [`{${__dirname}/**/*.entity{.ts,.js}`],
     migrations: [`${__dirname}/migrations/{.ts,*.js}`],
-    migrationsRun: true,
+    // migrationsRun: true,
     synchronize: true,
     // type: 'postgres',
     // host: process.env.POSTGRES_HOST,

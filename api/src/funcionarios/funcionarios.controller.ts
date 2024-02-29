@@ -2,17 +2,25 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FuncionariosService } from './funcionarios.service';
 import { CreateFuncionarioDto } from './dto/create-funcionario.dto';
 import { UpdateFuncionarioDto } from './dto/update-funcionario.dto';
+import { Funcionario } from './entities/funcionario.entity';
 
 @Controller('funcionarios')
 export class FuncionariosController {
-  constructor(private readonly funcionariosService: FuncionariosService) {}
+
+  constructor(private readonly funcionariosService: FuncionariosService) { }
 
   @Post()
-  create(@Body() createFuncionarioDto: CreateFuncionarioDto) {
-    return this.funcionariosService.create(createFuncionarioDto);
+  async create(@Body() createFuncionarioDto: CreateFuncionarioDto) {
+    const funcionario = await this.funcionariosService.create(createFuncionarioDto);
+
+    return {
+      funcionario,
+      mensagem: "Funcionario cadastrado com sucesso.",
+    };
   }
 
   @Get()
+  // async findAll(): Promise<Funcionario[]> {
   findAll() {
     return this.funcionariosService.findAll();
   }

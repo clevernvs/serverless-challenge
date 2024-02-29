@@ -1,23 +1,23 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity({ name: 'funcionario' })
-export class Funcionario {
+@Entity()
+export class Funcionario extends BaseEntity {
 
     @PrimaryGeneratedColumn('rowid')
     id: number;
 
-    @Column({ name: 'nome', nullable: false })
+    @Column({ type: 'varchar', nullable: false, length: 200 })
     nome: string;
 
-    @Column({ name: 'idade', nullable: false })
+    @Column({ type: 'integer', nullable: false })
     idade: number;
 
-    @Column({ name: 'cargo', nullable: false })
+    @Column({ type: 'varchar', nullable: false, length: 100 })
     cargo: string;
 
-    @CreateDateColumn({ name: 'created_at' })
+    @CreateDateColumn()
     createdAt: Date;
 
-    @CreateDateColumn({ name: 'updated_at' })
+    @UpdateDateColumn()
     updatedAt: Date;
 }
