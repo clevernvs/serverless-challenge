@@ -37,7 +37,7 @@ export class FuncionariosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFuncionarioDto: UpdateFuncionarioDto) {
+  async update(@Param('id') id: string, @Body() updateFuncionarioDto: UpdateFuncionarioDto) {
     return this.funcionariosService.update(+id, updateFuncionarioDto);
   }
 

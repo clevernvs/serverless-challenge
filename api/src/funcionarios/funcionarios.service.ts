@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateFuncionarioDto } from './dto/create-funcionario.dto';
 import { UpdateFuncionarioDto } from './dto/update-funcionario.dto';
@@ -43,8 +43,27 @@ export class FuncionariosService {
     return funcionario;
   }
 
-  update(id: number, updateFuncionarioDto: UpdateFuncionarioDto) {
-    return `Atualizando um funcionário pelo seu #${id}.`;
+  async update(id: number, updateFuncionarioDto: UpdateFuncionarioDto) {
+    // return `Atualizando um funcionário pelo seu #${id}.`;
+
+    const funcionario = await this.findOne(id);
+
+    const { nome, idade, cargo } = updateFuncionarioDto;
+
+    funcionario.nome = nome ? nome : funcionario.nome;
+    funcionario.idade = idade ? idade : funcionario.idade;
+    funcionario.cargo = cargo ? cargo : funcionario.cargo;
+
+    try {
+      await funcionario.save();
+      return funcionario;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Erro ao salvar os dados no banco de dados.',
+      );
+    }
+
+
   }
 
   remove(id: number) {
