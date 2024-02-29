@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FuncionarioRepository } from './entities/funcionario.repository';
 import { FuncionariosService } from './funcionarios.service';
 import { CreateFuncionarioDto } from './dto/create-funcionario.dto';
-import { UnprocessableEntityException } from '@nestjs/common';
+import { NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 
 const mockFuncionarioRepository = () => ({
     create: jest.fn(),
@@ -63,6 +63,23 @@ describe('FuncionariosService', () => {
         //         UnprocessableEntityException,
         //     );
         // });
+    });
+
+    describe('findOne', () => {
+        it('Deve retornar o funcionario encontrado', async () => {
+            funcionarioRepository.findOne.mockResolvedValue('mockFuncionario');
+            expect(funcionarioRepository.findOne).not.toHaveBeenCalled();
+
+            const result = await service.findOne('mockId');
+            const select = ['nome', 'idade', 'cargo'];
+            expect(funcionarioRepository.findOne).toHaveBeenCalledWith('mockId', { select });
+            expect(result).toEqual('mockFuncionario');
+        });
+
+        it('Deve gerar um erro porque o usuario não foi encontrado', async () => {
+            funcionarioRepository.findOne.mockResolvedValue(null);
+            expect(service.findOne('mockId')).rejects.toThrow(NotFoundException);
+        });
     });
 
 })
