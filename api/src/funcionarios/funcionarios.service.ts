@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateFuncionarioDto } from './dto/create-funcionario.dto';
 import { UpdateFuncionarioDto } from './dto/update-funcionario.dto';
@@ -32,8 +32,15 @@ export class FuncionariosService {
     // }));
   }
 
-  findOne(id: number) {
-    return `Retornando um funcionário pelo seu #${id}.`;
+  async findOne(id: number): Promise<Funcionario> {
+
+    const funcionario = await this.funcionariosRepository.findOne(id, {
+      select: ['nome', 'idade', 'cargo', 'id'],
+    });
+
+    if (!funcionario) throw new NotFoundException('Funcionário não encontrado.');
+
+    return funcionario;
   }
 
   update(id: number, updateFuncionarioDto: UpdateFuncionarioDto) {

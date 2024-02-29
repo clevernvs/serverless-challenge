@@ -3,6 +3,7 @@ import { FuncionariosService } from './funcionarios.service';
 import { CreateFuncionarioDto } from './dto/create-funcionario.dto';
 import { UpdateFuncionarioDto } from './dto/update-funcionario.dto';
 import { Funcionario } from './entities/funcionario.entity';
+import { ReturnFuncionarioDto } from './dto/return-funcionario.dto';
 
 @Controller('funcionarios')
 export class FuncionariosController {
@@ -10,7 +11,7 @@ export class FuncionariosController {
   constructor(private readonly funcionariosService: FuncionariosService) { }
 
   @Post()
-  async create(@Body() createFuncionarioDto: CreateFuncionarioDto) {
+  async create(@Body() createFuncionarioDto: CreateFuncionarioDto): Promise<ReturnFuncionarioDto> {
     const funcionario = await this.funcionariosService.create(createFuncionarioDto);
 
     return {
@@ -26,8 +27,13 @@ export class FuncionariosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.funcionariosService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<ReturnFuncionarioDto> {
+    const funcionario = await this.funcionariosService.findOne(+id);
+
+    return {
+      funcionario,
+      mensagem: 'Usuário encontrado.'
+    };
   }
 
   @Patch(':id')
