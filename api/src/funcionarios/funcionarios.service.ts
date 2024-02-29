@@ -33,21 +33,15 @@ export class FuncionariosService {
   }
 
   async update(id: number, updateFuncionarioDto: UpdateFuncionarioDto) {
-    const funcionario = await this.findOne(id);
 
-    const { nome, idade, cargo } = updateFuncionarioDto;
+    const resultado = await this.funcionariosRepository.update({ id }, updateFuncionarioDto);
 
-    funcionario.nome = nome ? nome : funcionario.nome;
-    funcionario.idade = idade ? idade : funcionario.idade;
-    funcionario.cargo = cargo ? cargo : funcionario.cargo;
-
-    try {
-      await funcionario.save();
+    if (resultado.affected > 0) {
+      const funcionario = await this.findOne(id);
       return funcionario;
-    } catch (error) {
-      throw new InternalServerErrorException('Erro ao salvar os dados do funcionário.');
+    } else {
+      throw new NotFoundException('Funcionário não encontrado.');
     }
-
 
   }
 

@@ -117,4 +117,26 @@ describe('FuncionariosService', () => {
         });
     });
 
+    describe('update', () => {
+        it('Deve ser retornado > 0 se os dados do fornecedor forem atualizados e retornar o novo funcionario', async () => {
+            funcionarioRepository.update.mockResolvedValue({ affected: 1 });
+            funcionarioRepository.findOne.mockResolvedValue('mockFuncionario');
+
+            const result = await service.update('mockUpdateFuncionarioDto', 'mockId');
+            expect(funcionarioRepository.update).toHaveBeenCalledWith(
+                { id: 'mockId' },
+                'mockUpdateFuncionarioDto',
+            );
+            expect(result).toEqual('mockFuncionario');
+        });
+
+        it('Deve gerar um erro se nenhuma linha for afetada no Banco de Dados', async () => {
+            funcionarioRepository.update.mockResolvedValue({ affected: 0 });
+
+            expect(service.updateUser('mockUpdateFuncionarioDto', 'mockId')).rejects.toThrow(
+                NotFoundException,
+            );
+        });
+    });
+
 })
