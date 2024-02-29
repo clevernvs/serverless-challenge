@@ -97,4 +97,24 @@ describe('FuncionariosService', () => {
         });
     });
 
+    describe('findAll', () => {
+        it('Deve encontrar todos os funcionários', async () => {
+            funcionarioRepository.findAll.mockResolvedValue('resultOfsearch');
+            const mockFindFuncionariosQueryDto: FindFuncionariossQueryDto = {
+                name: '',
+                email: '',
+                limit: 1,
+                page: 1,
+                role: '',
+                sort: '',
+                status: true,
+            };
+            const result = await service.findUsers(mockFindFuncionariosQueryDto);
+            expect(funcionarioRepository.findAll).toHaveBeenCalledWith(
+                mockFindFuncionariosQueryDto,
+            );
+            expect(result).toEqual('resultOfsearch');
+        });
+    });
+
 })
