@@ -17,18 +17,8 @@ export class FuncionariosService {
     return this.funcionariosRepository.createFuncionario(createFuncionarioDto);
   }
 
-  // async findAll(): Promise<Funcionario[]> {
-  findAll() {
-    // return `Retornando todos os funcionários.`;
-    // const funcionarios = await this.funcionariosRepository.find();
-    // return funcionarios.map(funcionario => ({
-    //   id: funcionario.id,
-    //   nome: funcionario.nome,
-    //   idade: funcionario.idade,
-    //   cargo: funcionario.cargo,
-    //   createdAt: funcionario.createdAt,
-    //   updatedAt: funcionario.updatedAt,
-    // }));
+  async findAll() {
+    await this.funcionariosRepository.find();
   }
 
   async findOne(id: number): Promise<Funcionario> {
