@@ -82,4 +82,19 @@ describe('FuncionariosService', () => {
         });
     });
 
+    describe('delete', () => {
+        it('Deve retornar > 0 se o funcionario for excluido', async () => {
+            funcionarioRepository.delete.mockResolvedValue({ affected: 1 });
+
+            await service.deleteUser('mockId');
+            expect(funcionarioRepository.delete).toHaveBeenCalledWith({ id: 'mockId' });
+        });
+
+        it('Deve acusar um erro se nenhum funcionário for excluido', async () => {
+            funcionarioRepository.delete.mockResolvedValue({ affected: 0 });
+
+            expect(service.delete('mockId')).rejects.toThrow(NotFoundException);
+        });
+    });
+
 })
