@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   api:
-    container_name: API
+    container_name: api
     build:
       context: ./
       dockerfile: docker/node/Dockerfile
@@ -11,19 +11,53 @@ services:
     ports:
       - '3000:3000'
     volumes:
+      # - api-data:/home/node/app
       - .:/home/node/app
-    env_file:
-      - ./.dotenv_files/.env.development.local
-    #   depends_on:
-    #     - db
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/db
+    # env_file: ./.dotenv_files/.env.development.local
+    depends_on:
+      - db
+    networks:
+      serverless-challenge:
+        ipv4_address: "192.168.128.2"
 
   db:
-    container_name: Database
+    container_name: database
     image: postgres:13-alpine
     restart: always
     ports:
       - '5432:5432'
     volumes:
+      # - db-data:/var/lib/postgres/data/
       - ./data/postgres/data:/var/lib/postgres/data/
-    env_file:
-      - ./.dotenv_files/.env.development.local
+    env_file: ./.dotenv_files/.env.development.local
+    networks:
+      serverless-challenge:
+        ipv4_address: "192.168.128.3"
+
+  adminer:
+    container_name: admin-database
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      serverless-challenge:
+        ipv4_address: "192.168.128.4"
+
+# volumes:
+#   db-data:
+#     name: db-data
+#     # ./data/postgres/data:
+
+#   api-data:
+#     name: api-data
+#     # ./data/postgres/data:
+
+networks:
+  serverless-challenge:
+    ipam:
+      driver: default
+      config:
+        - subnet: '192.168.128.0/20'
