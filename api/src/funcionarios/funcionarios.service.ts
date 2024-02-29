@@ -21,10 +21,11 @@ export class FuncionariosService {
     await this.funcionariosRepository.find();
   }
 
-  async findOne(id: number): Promise<Funcionario> {
-    const funcionario = await this.funcionariosRepository.findOne(id, {
-      select: ['nome', 'idade', 'cargo', 'id'],
-    });
+  async findOne(id): Promise<Funcionario> {
+    // const funcionario = await this.funcionariosRepository.findOne(id, {
+    //   select: ['nome', 'idade', 'cargo', 'id']
+    // });
+    const funcionario = await this.funcionariosRepository.findOne(id);
 
     if (!funcionario) throw new NotFoundException('Funcionário não encontrado.');
 
