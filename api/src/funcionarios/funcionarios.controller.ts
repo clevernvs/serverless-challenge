@@ -42,7 +42,10 @@ export class FuncionariosController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.funcionariosService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.funcionariosService.remove(+id);
+    return {
+      message: 'Funcionário removido com sucesso',
+    };
   }
 }

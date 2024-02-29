@@ -14,7 +14,6 @@ export class FuncionariosService {
   ) { }
 
   async create(createFuncionarioDto: CreateFuncionarioDto): Promise<Funcionario> {
-    // return JSON.stringify('This action adds a new funcionario');
     return this.funcionariosRepository.createFuncionario(createFuncionarioDto);
   }
 
@@ -33,7 +32,6 @@ export class FuncionariosService {
   }
 
   async findOne(id: number): Promise<Funcionario> {
-
     const funcionario = await this.funcionariosRepository.findOne(id, {
       select: ['nome', 'idade', 'cargo', 'id'],
     });
@@ -44,8 +42,6 @@ export class FuncionariosService {
   }
 
   async update(id: number, updateFuncionarioDto: UpdateFuncionarioDto) {
-    // return `Atualizando um funcionário pelo seu #${id}.`;
-
     const funcionario = await this.findOne(id);
 
     const { nome, idade, cargo } = updateFuncionarioDto;
@@ -58,15 +54,20 @@ export class FuncionariosService {
       await funcionario.save();
       return funcionario;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'Erro ao salvar os dados no banco de dados.',
-      );
+      throw new InternalServerErrorException('Erro ao salvar os dados do funcionário.');
     }
 
 
   }
 
-  remove(id: number) {
-    return `Deletando um funcionário pelo seu #${id}.`;
+  async remove(id: number) {
+    // return `Deletando um funcionário pelo seu #${id}.`;
+
+    const result = await this.funcionariosRepository.delete({ id: id });
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Funcionário não encontrado.');
+    }
   }
+
 }
