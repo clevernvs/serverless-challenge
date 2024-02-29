@@ -38,4 +38,6 @@ lerna-debug.log*
 /data
 
 # .env utilizados
-/.dotenv_files/*
+/.dotenv_files/.env.developement.local
+/.dotenv_files/.env.production
+/api/.env
