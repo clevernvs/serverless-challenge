@@ -6,3 +6,6 @@
 /api/.nyc_output
 
 /.dotenv_files/.env
+
+/frontend/dist
+/frontend/node_modules
