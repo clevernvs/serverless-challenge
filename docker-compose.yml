@@ -2,6 +2,26 @@ version: '3.8'
 
 services:
 
+  # api:
+  #   container_name: api
+  #   build:
+  #     context: ./docker/node/api
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     # - api-data:/home/node/app
+  #     # - ./api:/home/node/app/api
+  #     - .:/home/node/app
+  #   environment:
+  #     - DATABASE_URL=postgres://user:password@postgres:5432/db
+  #   # env_file: ./.dotenv_files/.env.development.local
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     serverless-challenge:
+  #       ipv4_address: "192.168.128.2"
   api:
     container_name: api
     build:
@@ -13,7 +33,7 @@ services:
     volumes:
       # - api-data:/home/node/app
       # - ./api:/home/node/app/api
-      - .:/home/node/app
+      - ./api:/home/node/app/api
     environment:
       - DATABASE_URL=postgres://user:password@postgres:5432/db
     # env_file: ./.dotenv_files/.env.development.local
@@ -68,7 +88,8 @@ services:
       - '5432:5432'
     volumes:
       # - db-data:/var/lib/postgres/data/
-      - ./data/postgres/data:/var/lib/postgres/data/
+      # - ./data/postgres/data:/var/lib/postgres/data/
+      - ./data:/var/lib/postgres/data/
     env_file: ./.dotenv_files/.env.development.local
     networks:
       serverless-challenge:
