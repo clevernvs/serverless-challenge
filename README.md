@@ -12,6 +12,22 @@
 
 <h1> Descrição: </h1>
 <p>
+Construir uma aplicação empresarial para se fazer o controle e levantamento de seus funcionários. Essa aplicação deve:
+
+- Cadastrar um funcionário;
+
+- Exibir os dados de um funcionário específico;
+
+- Atualizar os dados de um funcionário específico;
+
+- Excluir um funcionário;
+
+- Exibir os dados de todos os funcionários cadastrado;
+
+</p>
+
+<h2> Solução: </h2>
+<p>
 O desafio se propõe construir uma aplicação onde se deve ter uma API, um banco de dados relacional ou não e um frontend consumindo os dados dessa API. 
 Toda a aplicação deverá ser provida em uma estrutura Lambda na AWS.
 </p>
