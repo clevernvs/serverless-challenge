@@ -4,7 +4,7 @@
 
 # Logs
 /api/logs
-*.log
+/api/*.log
 /api/npm-debug.log*
 /api/pnpm-debug.log*
 /api/yarn-debug.log*
@@ -19,33 +19,32 @@
 /api/.nyc_output
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+/api/.idea
+/api/.project
+/api/.classpath
+/api/.c9/
+/api/*.launch
+/api/.settings/
+/api/*.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+/api/.vscode/*
+/api/!.vscode/settings.json
+/api/!.vscode/tasks.json
+/api/!.vscode/launch.json
+/api/!.vscode/extensions.json
 
 # Dados Locais
 /data
 
 # .env utilizados
+# /.dotenv_files
 /.dotenv_files/.env.developement.local
 /.dotenv_files/.env.production
+/frontend/.env
 /api/.env
 
 # FRONTEND
-
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # Compiled output
 /frontend/dist
 /frontend/tmp
@@ -58,22 +57,22 @@
 /frontend/yarn-error.log
 
 # IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+/frontend/.idea/
+/frontend/.project
+/frontend/.classpath
+/frontend/.c9/
+/frontend/*.launch
+/frontend/.settings/
+/frontend/*.sublime-workspace
 
 # Visual Studio Code
 /frontend/.vscode
 /frontend/.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+/frontend/!.vscode/settings.json
+/frontend/!.vscode/tasks.json
+/frontend/!.vscode/launch.json
+/frontend/!.vscode/extensions.json
+/frontend/.history/*
 
 # Miscellaneous
 /frontend/.angular/cache
@@ -85,5 +84,5 @@
 /frontend/typings
 
 # System files
-.DS_Store
-Thumbs.db
+/frontend/.DS_Store
+/frontend/Thumbs.db
