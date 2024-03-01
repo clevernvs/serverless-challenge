@@ -8,4 +8,4 @@ WORKDIR /home/node/app
 
 USER node
 
-CMD [ ".scripts/docker/start.sh" ]
+CMD [ ".scripts/docker/api-start.sh" ]

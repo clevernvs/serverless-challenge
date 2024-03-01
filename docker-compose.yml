@@ -5,13 +5,14 @@ services:
   api:
     container_name: api
     build:
-      context: ./
-      dockerfile: docker/node/Dockerfile
+      context: ./docker/node/api
+      dockerfile: Dockerfile
     restart: always
     ports:
       - '3000:3000'
     volumes:
       # - api-data:/home/node/app
+      # - ./api:/home/node/app/api
       - .:/home/node/app
     environment:
       - DATABASE_URL=postgres://user:password@postgres:5432/db
@@ -21,6 +22,43 @@ services:
     networks:
       serverless-challenge:
         ipv4_address: "192.168.128.2"
+
+  web:
+    container_name: frontend
+    build:
+      context: ./docker/node/web
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '4200:4200'
+    environment:
+      - NODE_ENV=development
+      # - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/home/node/app/frontend
+    networks:
+      serverless-challenge:
+        ipv4_address: "192.168.128.5"
+
+  # node:
+  #   image: "node:21-alpine"
+  #   user: "node"
+  #   working_dir: /home/node/app/frontend
+  #   environment:
+  #     - NODE_ENV=development
+  #   volumes:
+  #     - ./:/home/node/app/frontend
+  #   expose:
+  #     - "4200"
+  #   ports:
+  #     # use if it is necessary to expose the container to the host machine
+  #     - "4200:4200"
+  #   command: "npm start"
+  #   # volumes:
+  #   #   - .:/home/node/app/frontend
+  #   networks:
+  #     serverless-challenge:
+  #       ipv4_address: "192.168.128.5"
 
   db:
     container_name: database
