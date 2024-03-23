@@ -25,7 +25,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Inicia o servidor Angular
-ng serve --open
+npm start
 if [ $? -ne 0 ]; then
   echo "Erro ao iniciar o servidor Angular."
   exit 1

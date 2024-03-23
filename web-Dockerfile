@@ -11,13 +11,13 @@ WORKDIR /home/node/cache
 
 ## cache strategy
 COPY --chown=node:node ./frontend/package*.json ./
-RUN npm install --legacy-peer-deps
+RUN npm install 
 
 RUN mkdir /home/node/app
 WORKDIR /home/node/app/frontend
 
 COPY ./frontend/start.sh /
 
-EXPOSE 8001
+EXPOSE 4200
 
 CMD [ "bash", "start.sh" ]

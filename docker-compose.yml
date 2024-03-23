@@ -39,7 +39,7 @@ services:
       dockerfile: web-Dockerfile
     restart: always
     ports:
-      - '8001:8001'
+      - '4200:4200'
     environment:
       - NODE_ENV=development
       # - CHOKIDAR_USEPOLLING=true
