@@ -1,13 +1,14 @@
+# API
 /api/dist
 /api/node_modules
-
 # Tests
 /api/coverage
 /api/.nyc_output
 
-/.dotenv_files/.env
 
+# Frontend
 /frontend/dist
 /frontend/node_modules
 
-/docker
+.env
+# /docker

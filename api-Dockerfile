@@ -1,0 +1,24 @@
+FROM node:18.19.1-slim
+
+RUN apt update && apt install -y \
+    bash \
+    bc \
+    rsync
+
+USER node
+
+RUN mkdir /home/node/cache
+WORKDIR /home/node/cache
+
+## cache strategy
+COPY --chown=node:node ./api/package*.json ./
+RUN npm install --legacy-peer-deps
+
+RUN mkdir /home/node/app
+WORKDIR /home/node/app/api
+
+COPY ./api/start.sh /
+
+EXPOSE 3000
+
+CMD [ "bash", "start.sh" ]

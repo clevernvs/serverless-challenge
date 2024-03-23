@@ -1,0 +1,23 @@
+FROM node:18.19.1-slim
+
+RUN apt update && apt install -y \
+    bash \
+    rsync
+
+USER node
+
+RUN mkdir /home/node/cache
+WORKDIR /home/node/cache
+
+## cache strategy
+COPY --chown=node:node ./frontend/package*.json ./
+RUN npm install --legacy-peer-deps
+
+RUN mkdir /home/node/app
+WORKDIR /home/node/app/frontend
+
+COPY ./frontend/start.sh /
+
+EXPOSE 8001
+
+CMD [ "bash", "start.sh" ]
