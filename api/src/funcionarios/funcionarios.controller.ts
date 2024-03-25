@@ -12,7 +12,7 @@ export class FuncionariosController {
 
   @Post()
   async create(@Body() createFuncionarioDto: CreateFuncionarioDto): Promise<ReturnFuncionarioDto> {
-    const funcionario = await this.funcionariosService.create(createFuncionarioDto);
+    // const funcionario = await this.funcionariosService.create(createFuncionarioDto);
 
     return {
       funcionario,
