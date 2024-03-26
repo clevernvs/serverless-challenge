@@ -10,20 +10,20 @@ export class FuncionariosService {
 
   constructor(
     @InjectRepository(FuncionarioRepository)
-    private funcionariosRepository: FuncionarioRepository
+    private funcionarioRepository: FuncionarioRepository
   ) { }
 
   async create(createFuncionarioDto: CreateFuncionarioDto): Promise<Funcionario> {
-    return this.funcionariosRepository.createFuncionario(createFuncionarioDto);
+    return this.funcionarioRepository.createFuncionario(createFuncionarioDto);
   }
 
   async findAll() {
-    await this.funcionariosRepository.find();
+    await this.funcionarioRepository.find();
   }
 
-  async findOne(id): Promise<Funcionario> {
-    const funcionario = await this.funcionariosRepository.findOne(id);
-    // const funcionario = await this.funcionariosRepository.findOne(id);
+
+  async findOne(id: number): Promise<Funcionario> {
+    const funcionario = await this.funcionarioRepository.findOneBy({ id: id });
 
     if (!funcionario) throw new NotFoundException('Funcionário não encontrado.');
 
@@ -32,7 +32,7 @@ export class FuncionariosService {
 
   async update(id: number, updateFuncionarioDto: UpdateFuncionarioDto) {
 
-    const resultado = await this.funcionariosRepository.update({ id }, updateFuncionarioDto);
+    const resultado = await this.funcionarioRepository.update({ id }, updateFuncionarioDto);
 
     if (resultado.affected > 0) {
       const funcionario = await this.findOne(id);
@@ -46,7 +46,7 @@ export class FuncionariosService {
   async remove(id: number) {
     // return `Deletando um funcionário pelo seu #${id}.`;
 
-    const result = await this.funcionariosRepository.delete({ id: id });
+    const result = await this.funcionarioRepository.delete({ id: id });
 
     if (result.affected === 0) {
       throw new NotFoundException('Funcionário não encontrado.');

@@ -12,7 +12,7 @@ export class FuncionariosController {
 
   @Post()
   async create(@Body() createFuncionarioDto: CreateFuncionarioDto): Promise<ReturnFuncionarioDto> {
-    // const funcionario = await this.funcionariosService.create(createFuncionarioDto);
+    const funcionario = await this.funcionariosService.create(createFuncionarioDto);
 
     return {
       funcionario,
@@ -27,7 +27,7 @@ export class FuncionariosController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ReturnFuncionarioDto> {
+  async findOne(@Param('id') id: number): Promise<ReturnFuncionarioDto> {
     const funcionario = await this.funcionariosService.findOne(+id);
 
     return {
